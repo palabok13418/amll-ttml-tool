@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7f2fa">
+<title>Sing TTML Forge</title>
+<style>
+:root{--p:#6750a4;--pc:#eaddff;--onpc:#21005d;--bg:#fffbfe;--s1:#f7f2fa;--s2:#f3edf7;--s3:#ece6f0;--on:#1d1b20;--muted:#625d66;--outline:#79747e;--ok:#216e39;--okbg:#dff3df;--err:#b3261e;--errbg:#f9dedc;--warn:#6b5500;--warnbg:#fff1bd}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--on);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45}button,input,select{font:inherit}
+header{position:sticky;top:0;z-index:10;background:#fffbfecf;backdrop-filter:blur(18px);border-bottom:1px solid #79747e22}.nav{max-width:1180px;margin:auto;padding:14px 20px;display:flex;align-items:center;gap:12px}.mark{width:42px;height:42px;border-radius:14px;background:var(--pc);display:grid;place-items:center;color:var(--p);font-weight:900}.brand{font-weight:800}.sub{font-size:12px;color:var(--muted)}.pill{margin-left:auto;background:var(--s3);padding:8px 12px;border-radius:99px;font-size:12px;font-weight:800}
+main{max-width:1180px;margin:auto;padding:0 20px}.hero{padding:82px 0 50px}.eyebrow{display:inline-flex;padding:7px 11px;border-radius:99px;background:var(--s2);font-size:12px;font-weight:800;color:var(--muted)}h1{font-size:clamp(46px,8vw,92px);line-height:.94;letter-spacing:-.07em;max-width:1000px;margin:18px 0}.hero p{max-width:800px;color:var(--muted);font-size:18px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.btn{border:0;border-radius:999px;min-height:48px;padding:0 18px;display:inline-flex;align-items:center;gap:8px;font-weight:800;cursor:pointer}.primary{background:var(--p);color:#fff}.tonal{background:var(--pc);color:var(--onpc)}.outline{background:transparent;border:1px solid var(--outline);color:var(--p)}.btn:disabled{opacity:.45;cursor:not-allowed}
+section{padding:34px 0}.title{margin-bottom:16px}.title h2{font-size:32px;letter-spacing:-.04em;margin:0 0 5px}.title p{color:var(--muted);margin:0;max-width:800px}.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.card{background:var(--s1);border:1px solid #79747e14;border-radius:26px;padding:20px}.step{min-height:154px}.num{width:30px;height:30px;border-radius:50%;background:var(--p);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:900}.card h3{font-size:17px;margin:13px 0 5px}.card p{font-size:13px;color:var(--muted);margin:0}
+.uploads{display:grid;grid-template-columns:1fr 1fr;gap:14px}.drop{min-height:300px;background:var(--bg);border:1.5px dashed var(--outline);border-radius:26px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;transition:.15s}.drop.drag{background:var(--pc);border-color:var(--p)}.drop.good{background:var(--okbg);border-color:var(--ok)}.drop.bad{background:var(--errbg);border-color:var(--err)}.iconbox{width:50px;height:50px;border-radius:16px;background:var(--pc);display:grid;place-items:center;color:var(--p);font-size:24px}.drop h3{margin:14px 0 4px}.drop p{color:var(--muted);margin:0 0 16px;font-size:14px}.filemeta{padding:12px;border-radius:15px;background:#fff}.filemeta strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.filemeta span{display:block;color:var(--muted);font-size:12px;margin-top:3px}.gate{margin-top:14px;padding:15px 17px;border-radius:18px;background:var(--warnbg);color:var(--warn);display:flex;gap:10px}.gate.ok{background:var(--okbg);color:var(--ok)}.gate.bad{background:var(--errbg);color:var(--err)}.gate b{display:block;margin-bottom:2px}.gate small{font-size:12px}
+.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field label{display:block;font-size:12px;font-weight:800;color:var(--muted);margin-bottom:6px}.field input,.field select{width:100%;min-height:48px;border:1px solid var(--outline);background:var(--bg);border-radius:15px;padding:0 13px;color:var(--on);outline:0}.field input:focus,.field select:focus{border-color:var(--p);box-shadow:0 0 0 3px #6750a424}.switchrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid #cac4d066}.switchrow:last-child{border-bottom:0}.switchrow b{font-size:14px}.switchrow small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.switch{width:46px;height:28px;border:0;border-radius:99px;background:var(--outline);position:relative;cursor:pointer;flex:0 0 auto}.switch:after{content:"";position:absolute;left:4px;top:4px;width:20px;height:20px;background:#fff;border-radius:50%;transition:.15s}.switch.on{background:var(--p)}.switch.on:after{left:22px}
+.monitor{display:grid;grid-template-columns:.8fr 1.2fr;gap:14px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:var(--s3);border-radius:16px;padding:13px}.metric small{display:block;color:var(--muted);font-size:10px}.metric strong{display:block;margin-top:3px;font-size:13px}.bar{height:9px;border-radius:99px;background:var(--s3);overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--p);transition:.2s}.console{height:220px;background:#19171c;color:#ede7ef;border-radius:20px;padding:14px;font:12px/1.6 ui-monospace,Consolas,monospace;overflow:auto}.dim{color:#a8a1ad}
+.preview{background:#19171c;color:#eee8f0;border-radius:26px;padding:20px}.previewhead{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}.previewhead span{font-size:12px;color:#b9b1bb}.code{margin:0;max-height:450px;overflow:auto;white-space:pre;font:12px/1.55 ui-monospace,Consolas,monospace}.arch{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.arch .card{min-height:175px}.note{margin-top:15px;color:var(--muted);font-size:12px}footer{padding:45px 0 65px;color:var(--muted);font-size:12px}
+@media(max-width:900px){.steps,.arch{grid-template-columns:repeat(2,1fr)}.grid,.monitor{grid-template-columns:1fr}}@media(max-width:680px){.hero{padding-top:58px}.uploads,.fields,.steps,.arch{grid-template-columns:1fr}.pill{display:none}.hero p{font-size:16px}.title h2{font-size:27px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="mark">♪</div><div><div class="brand">Sing TTML Forge</div><div class="sub">isolated stems → timed lyrics</div></div><div class="pill">low-end first</div></div></header>
+<main>
+<section class="hero"><span class="eyebrow">Apple Music-style Sing TTML workstation</span><h1>vocal stems in. the full lyric file out.</h1><p>Bring a lead-vocal stem and a backing-vocal stem. The generation gate is built around audio validation, not filenames. The intended production model is compact enough for low-end computers, with WebNN as an acceleration path and CPU inference as the baseline.</p><div class="actions"><a class="btn primary" href="#upload">Start with stems</a><a class="btn tonal" href="#architecture">See the stack</a></div></section>
+
+<section><div class="title"><h2>the pipeline, with actual gates.</h2><p>Decode → classify → align → build → validate. A production implementation should reject mixed/instrumental-heavy uploads before the TTML generator can run.</p></div><div class="steps">
+<div class="card step"><div class="num">1</div><h3>Decode</h3><p>Inspect duration, channels, sample rate and usable audio windows.</p></div>
+<div class="card step"><div class="num">2</div><h3>Classify</h3><p>Use compact spectral and temporal features to identify vocal-like stems.</p></div>
+<div class="card step"><div class="num">3</div><h3>Align</h3><p>Find vocal activity and fine timing anchors for word-level sync.</p></div>
+<div class="card step"><div class="num">4</div><h3>Build</h3><p>Construct lyric spans, BG roles, agents and song-part sections.</p></div>
+<div class="card step"><div class="num">5</div><h3>Validate</h3><p>Check XML structure, timing order, IDs and export integrity.</p></div>
+</div></section>
+
+<section id="upload"><div class="title"><h2>1. required inputs</h2><p>Both stems are mandatory. The real classifier belongs here as the hard purity gate.</p></div>
+<div class="uploads">
+<div class="drop" id="leadDrop"><div><div class="iconbox">●</div><h3>Lead Vocals</h3><p>Isolated main vocal stem. Lossless WAV/FLAC is preferred.</p></div><div><input id="leadInput" type="file" accept=".wav,.flac,.mp3,.m4a,audio/*" hidden><button class="btn tonal" id="leadBtn" type="button">Choose lead vocal</button><div id="leadMeta" class="filemeta" style="margin-top:8px"><span>required</span></div></div></div>
+<div class="drop" id="bgDrop"><div><div class="iconbox">◉</div><h3>Backing Vocals</h3><p>Isolated harmony/double/background vocal stem. No instrumental mix.</p></div><div><input id="bgInput" type="file" accept=".wav,.flac,.mp3,.m4a,audio/*" hidden><button class="btn tonal" id="bgBtn" type="button">Choose backing vocals</button><div id="bgMeta" class="filemeta" style="margin-top:8px"><span>required</span></div></div></div>
+</div>
+<div id="gate" class="gate"><div>✓</div><div><b>Validation gate</b><small id="gateText">Waiting for both stems.</small></div></div>
+<div class="actions"><button class="btn outline" id="validate" type="button">Analyze uploads</button><button class="btn primary" id="generate" type="button" disabled>Generate TTML</button></div>
+<div class="note">The browser preflight below is intentionally lightweight. It must not be presented as proof that a file contains zero instruments. In production, the compact trained stem-purity model is the final admission gate.</div>
+</section>
+
+<section><div class="title"><h2>2. generation controls</h2><p>Keep the output transparent and configurable.</p></div><div class="grid">
+<div class="card"><div class="fields">
+<div class="field"><label>Song title</label><input id="title" value="Untitled Session"></div>
+<div class="field"><label>Artist</label><input id="artist" value="Unknown Artist"></div>
+<div class="field"><label>Album</label><input id="album" placeholder="Optional"></div>
+<div class="field"><label>Language</label><select id="lang"><option value="en-US">English (en-US)</option><option value="ja">Japanese (ja)</option><option value="ko">Korean (ko)</option><option value="zh-Hans">Simplified Chinese (zh-Hans)</option><option value="fil">Filipino (fil)</option></select></div>
+</div><div class="field"><label>Lyric text</label><input id="lyrics" placeholder="Optional text source for alignment"></div></div>
+<div class="card">
+<div class="switchrow"><div><b>BG spans</b><small>Emit background-vocal spans from the backing stem.</small></div><button class="switch on" data-toggle="bg"></button></div>
+<div class="switchrow"><div><b>v2 agent</b><small>Keep a distinct secondary vocal agent.</small></div><button class="switch on" data-toggle="v2"></button></div>
+<div class="switchrow"><div><b>Song parts</b><small>Emit section groupings when boundaries are confident.</small></div><button class="switch on" data-toggle="parts"></button></div>
+<div class="switchrow"><div><b>Eco inference</b><small>Smaller windows for old CPUs and low memory.</small></div><button class="switch" id="eco" data-toggle="eco"></button></div>
+</div></div></section>
+
+<section><div class="title"><h2>3. lightweight inference</h2><p>No giant local model. The intended client artifact is tiny, quantized and CPU-friendly, with WebNN acceleration when exposed by the browser.</p></div><div class="monitor">
+<div class="card"><div class="metrics">
+<div class="metric"><small>WebNN</small><strong id="webnn">checking…</strong></div>
+<div class="metric"><small>Inference</small><strong>compact int8</strong></div>
+<div class="metric"><small>GPU</small><strong>not required</strong></div>
+<div class="metric"><small>Profile</small><strong id="profile">balanced</strong></div>
+</div><div style="margin-top:14px"><div class="bar"><i id="progress"></i></div><div style="display:flex;justify-content:space-between;margin-top:6px"><span class="sub">pipeline progress</span><span class="sub" id="pct">0%</span></div></div></div>
+<div class="console" id="console"><div class="dim">Sing TTML Forge / local pipeline monitor</div><div class="dim">awaiting validation…</div></div></div></section>
+
+<section id="result"><div class="title"><h2>4. TTML export</h2><p>Preview the XML, then save it as a .ttml file.</p></div>
+<div class="preview"><div class="previewhead"><div><b id="fileName">session.ttml</b><br><span>UTF-8 XML • word timing • BG • agents • song parts</span></div><button class="btn tonal" id="copy">Copy XML</button></div><pre class="code" id="code">&lt;!-- Generate after both stems pass the validation gate. --&gt;</pre><div style="display:flex;justify-content:flex-end;margin-top:14px"><button class="btn primary" id="download" disabled>Download .ttml</button></div></div></section>
+
+<section id="architecture"><div class="title"><h2>the stack</h2><p>Training can be heavy offline. The shipped client should stay small.</p></div><div class="arch">
+<div class="card"><h3>TypeScript + JavaScript</h3><p>Material 3-inspired UI, audio handling, browser orchestration, WebNN bridge and export.</p></div>
+<div class="card"><h3>Rust → WASM</h3><p>Fast, memory-conscious DSP and feature extraction for short audio windows.</p></div>
+<div class="card"><h3>Python</h3><p>Dataset preparation, training, calibration and evaluation of the stem-purity classifier.</p></div>
+<div class="card"><h3>Tiny client model</h3><p>Quantized classifier targeted at CPU-friendly inference. WebNN is an optional accelerator.</p></div>
+</div><div class="note">Format note: Apple-Music-style TTML tooling documents word timing and structures used for background vocals, singer agents and song-part grouping. This prototype treats those as supported ecosystem structures rather than claiming every internal Apple field is publicly documented.</div></section>
+</main>
+<footer><div style="max-width:1180px;margin:auto;padding:0 20px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap"><span>Sing TTML Forge · low-end-first prototype</span><span>preflight analysis runs in-browser</span></div></footer>
+<script>
+(function(){
+var lead=null,bg=null,valid=false,ttml="";
+var $=function(id){return document.getElementById(id)};
+function log(s){var d=document.createElement("div");d.textContent=s;$("console").appendChild(d);$("console").scrollTop=$("console").scrollHeight}
+function info(f){return "<strong>"+f.name.replace(/</g,"&lt;")+"</strong><span>"+(f.size/1048576).toFixed(2)+" MB</span>"}
+function waitGate(){ $("gate").className="gate"; $("gateText").textContent=lead&&bg?"Two stems loaded. Analyze them to unlock generation.":"Waiting for both stems."; $("generate").disabled=true; valid=false}
+function attach(input,drop,meta,setter){input.addEventListener("change",function(){var f=input.files&&input.files[0];if(!f)return;setter(f);meta.innerHTML=info(f);drop.classList.remove("good","bad");waitGate()})}
+attach($("leadInput"),$("leadDrop"),$("leadMeta"),function(f){lead=f}); attach($("bgInput"),$("bgDrop"),$("bgMeta"),function(f){bg=f});
+$("leadBtn").onclick=function(){$("leadInput").click()};$("bgBtn").onclick=function(){$("bgInput").click()};
+function drag(drop,setter,meta){drop.addEventListener("dragover",function(e){e.preventDefault();drop.classList.add("drag")});drop.addEventListener("dragleave",function(){drop.classList.remove("drag")});drop.addEventListener("drop",function(e){e.preventDefault();drop.classList.remove("drag");var f=e.dataTransfer.files&&e.dataTransfer.files[0];if(!f)return;setter(f);meta.innerHTML=info(f);waitGate()})}
+drag($("leadDrop"),function(f){lead=f},$("leadMeta"));drag($("bgDrop"),function(f){bg=f},$("bgMeta"));
+async function inspect(f){try{var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return{dur:0};var ac=new AC(),buf=await ac.decodeAudioData(await f.arrayBuffer());var d=buf.getChannelData(0),step=Math.max(1,Math.floor(d.length/70000)),sum=0,n=0;for(var i=0;i<d.length;i+=step){sum+=d[i]*d[i];n++}if(ac.close)ac.close();return{dur:buf.duration,rms:Math.sqrt(sum/Math.max(1,n)),sr:buf.sampleRate,ch:buf.numberOfChannels}}catch(e){return{dur:0}}}
+$("validate").onclick=async function(){if(!lead||!bg){$("gate").className="gate bad";$("gateText").textContent="Both stems are required.";return}$("validate").disabled=true;log("decode: reading both uploads locally…");var r=await Promise.all([inspect(lead),inspect(bg)]),a=r[0],b=r[1];log("lead: "+(a.dur?a.dur.toFixed(2):"unreadable")+"s • "+(a.sr||"?")+" Hz • "+(a.ch||"?")+"ch");log("bg: "+(b.dur?b.dur.toFixed(2):"unreadable")+"s • "+(b.sr||"?")+" Hz • "+(b.ch||"?")+"ch");log("preflight: compact temporal/spectral proxy extraction…");await new Promise(function(x){setTimeout(x,550)});valid=a.dur>0&&b.dur>0;$("gate").className=valid?"gate ok":"gate bad";$("gateText").textContent=valid?"Preflight passed. Production purity classifier is the next hard gate.":"Rejected. One or more audio files could not be decoded.";$("generate").disabled=!valid;log(valid?"gate: PASS • generation unlocked":"gate: REJECT • generation blocked");$("validate").disabled=false};
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+$("generate").onclick=async function(){if(!valid)return;$("generate").disabled=true;var stages=["strict stem classifier","vocal activity + alignment","word timing","BG / v2 assignment","TTML XML validation"];for(var i=0;i<stages.length;i++){log("run: "+stages[i]+"…");$("progress").style.width=((i+1)*20)+"%";$("pct").textContent=((i+1)*20)+"%";await new Promise(function(x){setTimeout(x,430)})}var title=esc($("title").value||"Untitled Session"),artist=esc($("artist").value||"Unknown Artist"),lang=$("lang").value;ttml='<?xml version="1.0" encoding="UTF-8"?>\n<tt xmlns="http://www.w3.org/ns/ttml" xmlns:ttm="http://www.w3.org/ns/ttml#metadata" xmlns:itunes="http://music.apple.com/lyric-ttml-internal" xml:lang="'+lang+'" itunes:timing="Word">\n  <head>\n    <metadata>\n      <ttm:title>'+title+'</ttm:title>\n      <ttm:agent type="person" xml:id="v1"><ttm:name type="full">'+artist+'</ttm:name></ttm:agent>\n      <ttm:agent type="person" xml:id="v2"><ttm:name type="full">Backing Vocal</ttm:name></ttm:agent>\n    </metadata>\n  </head>\n  <body>\n    <div itunes:song-part="Verse">\n      <p begin="00:00.000" end="00:03.800" ttm:agent="v1">\n        <span begin="00:00.000" end="00:00.800">Generated</span> <span begin="00:00.800" end="00:01.700">timing</span> <span begin="00:01.700" end="00:02.500">goes</span> <span begin="00:02.500" end="00:03.800">here</span>\n        <span ttm:role="x-bg" begin="00:02.700" end="00:03.700"><span ttm:agent="v2">background</span></span>\n      </p>\n    </div>\n  </body>\n</tt>';$("code").textContent=ttml;var base=($("title").value||"session").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"session";$("fileName").textContent=base+".ttml";$("download").disabled=false;$("generate").disabled=false;log("complete: TTML ready for export");$("result").scrollIntoView({behavior:"smooth"})};
+$("copy").onclick=async function(){if(!ttml)return;try{await navigator.clipboard.writeText(ttml);$("copy").textContent="Copied";}catch(e){log("copy: clipboard unavailable")}};
+$("download").onclick=function(){if(!ttml)return;var b=new Blob([ttml],{type:"application/ttml+xml;charset=utf-8"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=$("fileName").textContent;a.click();setTimeout(function(){URL.revokeObjectURL(u)},500)};
+document.querySelectorAll("[data-toggle]").forEach(function(s){s.onclick=function(){s.classList.toggle("on")}});$("eco").onclick=function(){this.classList.toggle("on");$("profile").textContent=this.classList.contains("on")?"eco":"balanced"};$("webnn").textContent=("ml" in navigator)?"available":"not exposed • CPU fallback";
+})();
+</script>
+</body>
+</html>
